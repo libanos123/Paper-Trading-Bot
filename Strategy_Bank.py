@@ -18,25 +18,3 @@ class SMA_Strategy:
             return "SELL"
         return "HOLD"
 
-class EnvelopeStrategy:
-    def __init__(self, window=20, envelope_pct=0.02):
-        self.window = window
-        self.envelope_pct = envelope_pct
-
-    def generate_signal(self, prices):
-        if len(prices) < self.window:
-            return "Hold"
-
-        average = prices[-self.window:].mean()
-        price = prices.iloc[-1]
-
-        lower_band = average * (1 - self.envelope_pct)
-        upper_band = average * (1 + self.envelope_pct)
-
-        if price < lower_band:
-            return "Buy"
-        elif price > upper_band:
-            return "Sell"
-        else:
-            return "Hold"
-            
